@@ -23,7 +23,10 @@ struct EmotionRecordFeeling : View {
                     }
                 }
                 
-                TextField($emotion.situation, placeholder: Text("Tell us"))
+                
+                TextField("Tell us", text: $emotion.situation)
+                
+                
                 
                 Spacer()
                 

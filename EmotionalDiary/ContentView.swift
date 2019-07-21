@@ -5,7 +5,6 @@
 //  Created by Italo Boss on 11/06/19.
 //  Copyright © 2019 Italo Boss. All rights reserved.
 //
-
 import SwiftUI
 
 struct ContentView : View {
@@ -13,23 +12,24 @@ struct ContentView : View {
     var body: some View {
         TabbedView {
             EmotionsList()
-            .tabItemLabel(
-                VStack {
+                .tabItem {
+                    VStack {
                     Image(systemName: "heart.fill")
-                    Text("Emotions")
+                    Text(" a tab item ")
                 }
-            )
+            }
             .tag(0)
             
+
             NavigationView {
                 List {
                     EmotionRecordRow(emotion: EmotionRecord(id: 1, situation: "Something", feeling: .happiness, thoughts: "Some...", result: "Result", creationDate: Date()))
                 }
                 .navigationBarTitle(Text("Your emotions"))
             }
-            .tabItemLabel(
+            .tabItem {
                 Text("Resume")
-            )
+            }
             .tag(1)
         }
     }
