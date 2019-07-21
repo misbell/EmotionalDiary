@@ -12,25 +12,37 @@ struct EmotionsList : View {
     
     private var emotions: [EmotionRecord] = EmotionDao.shared.getAll()
     
+    @State var showingProfile = false
+    
+    var emotionFeelingButton: some View {
+        Button(action: { self.showingProfile.toggle() }) {
+            Image(systemName: "person.crop.circle")
+                .imageScale(.large)
+                .accessibility(label: Text("Add New Emotion"))
+                .padding()
+        }
+    }
+    
     var body: some View {
         NavigationView {
-            List(emotions) { emotion in
-                NavigationButton(destination: EmotionRecordDetail(emotion: emotion)) {
-                    EmotionRecordRow(emotion: emotion)
-                }
+       List(emotions) { emotion in
+                NavigationLink(destination: EmotionRecordDetail(emotion: emotion)) {
+                          EmotionRecordRow(emotion: emotion)
+                      }
             }
             .navigationBarTitle(Text("My emotions"))
-            .navigationBarItems(trailing:
-                PresentationButton(Image(systemName: "plus")
-                        .imageScale(.large)
-                        .accessibility(label: Text("Add new emotion"))
-                        .padding(),
-                    destination: EmotionRecordFeeling())
-            )
+            .navigationBarItems(trailing: emotionFeelingButton)
+                .sheet(isPresented: $showingProfile) {
+                    EmotionRecordFeeling()
+                }
+                
+          
+           
         }
         
     }
 }
+
 
 #if DEBUG
 struct EmotionsList_Previews : PreviewProvider {

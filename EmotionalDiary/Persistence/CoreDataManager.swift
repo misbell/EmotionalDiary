@@ -31,10 +31,11 @@ class CoreDataManager: NSObject {
         }
         
         // initialize the CloudKit schema
+        // initialize the CloudKit schema
+        try? container.initializeCloudKitSchema(options: [.dryRun, .printSchema]) // set to .none when production
+        
         let id = "iCloud.academy.ifce.ib.EmotionalDiary"
-        let options = NSPersistentCloudKitContainerOptions(containerIdentifier: id)
-        options.shouldInitializeSchema = false // starts with true, then toggle to false when done
-        description.cloudKitContainerOptions = options
+        description.cloudKitContainerOptions = NSPersistentCloudKitContainerOptions(containerIdentifier: id)
 
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
